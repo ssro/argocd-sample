@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
     targetRevision: main
-    path: ./apps/nginx/overlays/staging
+    path: ./apps/project-nginx/nginx/overlays/staging
   destination:
     server: https://kubernetes.default.svc
     namespace: staging
@@ -45,7 +45,7 @@ spec:
    source:
      repoURL: https://github.com/ssro/argocd-sample.git
      targetRevision: main
-     path: ./apps/nginx/overlays/production
+     path: ./apps/project-nginx/nginx/overlays/production
    destination:
      server: https://kubernetes.default.svc
      namespace: production
