@@ -3,8 +3,7 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
-  - serviceAccount.yaml
 labels:
   - includeSelectors: true
     pairs:
-      project: default
+      project: project-nginx

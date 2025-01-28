@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: project-nginx
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
     targetRevision: main
@@ -41,7 +41,7 @@ metadata:
    finalizers:
      - resources-finalizer.argocd.argoproj.io
 spec:
-   project: default
+   project: project-nginx
    source:
      repoURL: https://github.com/ssro/argocd-sample.git
      targetRevision: main
