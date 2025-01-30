@@ -6,11 +6,11 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: project-nginx
+  project: project-httpd
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
     targetRevision: main
-    path: ./apps/project-nginx/common/staging
+    path: ./apps/project-httpd/common/staging
   destination:
     server: https://kubernetes.default.svc
     namespace: httpd-staging
@@ -41,11 +41,11 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: project-nginx
+  project: project-httpd
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
     targetRevision: main
-    path: ./apps/project-nginx/common/production
+    path: ./apps/project-httpd/common/production
   destination:
     server: https://kubernetes.default.svc
     namespace: httpd-production
