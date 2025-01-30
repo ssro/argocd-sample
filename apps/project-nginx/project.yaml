@@ -7,7 +7,7 @@ metadata:
   namespace: argocd
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io/background
 spec:
   description: Project
   # Allow manifests to deploy from any Git repos

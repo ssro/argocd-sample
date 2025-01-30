@@ -4,7 +4,7 @@ metadata:
   name: httpd-staging
   namespace: argocd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io/background
 spec:
   project: project-httpd
   source:
@@ -39,7 +39,7 @@ metadata:
    name: httpd-production
    namespace: argocd
    finalizers:
-     - resources-finalizer.argocd.argoproj.io
+     - resources-finalizer.argocd.argoproj.io/background
 spec:
    project: project-httpd
    source:
