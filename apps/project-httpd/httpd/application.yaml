@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: httpd-staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: project-httpd
+  source:
+    repoURL: https://github.com/ssro/argocd-sample.git
+    targetRevision: main
+    path: ./apps/project-httpd/httpd/overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - SkipDryRunOnMissingResource=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+   name: httpd-production
+   namespace: argocd
+   finalizers:
+     - resources-finalizer.argocd.argoproj.io
+spec:
+   project: project-httpd
+   source:
+     repoURL: https://github.com/ssro/argocd-sample.git
+     targetRevision: main
+     path: ./apps/project-httpd/httpd/overlays/production
+   destination:
+     server: https://kubernetes.default.svc
+     namespace: production
+   syncPolicy:
+     automated:
+       prune: true
+       selfHeal: true
+       allowEmpty: false
+     syncOptions:
+       - ApplyOutOfSyncOnly=true
+       - Validate=true
+       - CreateNamespace=true
+       - PrunePropagationPolicy=foreground
+       - PruneLast=true
+       - SkipDryRunOnMissingResource=true
+     retry:
+       limit: 5
+       backoff:
+         duration: 5s
+         factor: 2
+         maxDuration: 3m
