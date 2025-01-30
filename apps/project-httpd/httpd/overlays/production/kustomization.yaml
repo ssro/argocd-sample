@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base
+namespace: httpd-production
+images:
+- name: public.ecr.aws/docker/library/httpd
+  newTag: "2.4-alpine"
+patches:
+- path: patches.yaml

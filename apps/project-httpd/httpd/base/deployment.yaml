@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: httpd
+  name: httpd
+spec:
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      serviceAccountName: httpd
+      containers:
+        - image: public.ecr.aws/docker/library/httpd
+          imagePullPolicy: IfNotPresent
+          name: httpd
