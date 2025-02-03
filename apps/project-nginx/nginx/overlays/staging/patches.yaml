@@ -51,7 +51,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: httpd
+  name: nginx
 spec:
   strategy:
     type: RollingUpdate
@@ -60,9 +60,9 @@ spec:
       maxSurge: 100%
   template:
     spec:
-      serviceAccountName: httpd
+      serviceAccountName: nginx
       containers:
-        - name: httpd
+        - name: nginx
           env:
             - name: ENVIRONMENT
               value: "production"
