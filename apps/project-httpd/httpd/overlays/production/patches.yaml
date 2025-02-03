@@ -52,6 +52,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   annotations:
+    transfer-hpa: "true"
     argocd.argoproj.io/sync-wave: "2"
   name: httpd
 spec:
