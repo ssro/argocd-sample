@@ -103,6 +103,7 @@ kind: HorizontalPodAutoscaler
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
+    transfer-hpa: "true"
   name: httpd
 spec:
   minReplicas: 1
