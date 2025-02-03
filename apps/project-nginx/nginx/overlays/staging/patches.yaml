@@ -104,7 +104,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
     transfer-hpa: "true"
-  name: httpd
+  name: nginx
 spec:
   minReplicas: 1
   maxReplicas: 2
