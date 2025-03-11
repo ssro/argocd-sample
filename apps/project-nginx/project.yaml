@@ -10,13 +10,13 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   description: Project
-  # Allow manifests to deploy from any Git repos
+  # Allow manifests to deploy from specific GitHub repos
   sourceRepos:
     - "https://github.com/ssro/argocd-sample.git"
   destinations:
     - namespace: "*"
       server: "*"
-  # Deny all cluster-scoped resources from being created, except for Namespace
+  # Allow all cluster-scoped resources from being created
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
