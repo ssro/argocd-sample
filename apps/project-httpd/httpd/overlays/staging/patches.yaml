@@ -48,34 +48,72 @@ spec:
             failureThreshold: 5
             periodSeconds: 5
 ---
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "2"
+#     transfer-hpa: "true"
+#   name: httpd
+# spec:
+#   minReplicas: 2
+#   maxReplicas: 3
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 50
+#   behavior:
+#     scaleUp:
+#       stabilizationWindowSeconds: 0
+#       policies:
+#         - type: Pods
+#           value: 1
+#           periodSeconds: 120
+#     scaleDown:
+#       stabilizationWindowSeconds: 120
+#       policies:
+#         - type: Pods
+#           value: 1
+#           periodSeconds: 120
+#       selectPolicy: Max
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
-    transfer-hpa: "true"
+    argocd.argoproj.io/sync-wave: "3"
+    scaledobject.keda.sh/transfer-hpa-ownership: "true"
+    # autoscaling.keda.sh/paused-replicas: "0"
+    autoscaling.keda.sh/paused: "false"
   name: httpd
 spec:
-  minReplicas: 2
-  maxReplicas: 3
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 0
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 120
-    scaleDown:
-      stabilizationWindowSeconds: 120
-      policies:
-        - type: Pods
-          value: 1
-          periodSeconds: 120
-      selectPolicy: Max
+  minReplicaCount: 1
+  maxReplicaCount: 2
+  scaleTargetRef:
+    name: httpd
+  pollingInterval: 15
+  advanced:
+    restoreToOriginalReplicaCount: false
+    horizontalPodAutoscalerConfig:
+      name: httpd
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 60
+        scaleDown:
+          stabilizationWindowSeconds: 60
+          policies:
+            - type: Pods
+              value: 1
+              periodSeconds: 60
+          selectPolicy: Max
+  triggers:
+    - type: cpu
+      metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
+      metadata:
+        value: "70"
