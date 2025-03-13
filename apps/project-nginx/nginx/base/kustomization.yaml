@@ -3,8 +3,8 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - service.yaml
-#  - hpa.yaml
-  - keda-hpa.yaml
+  - hpa.yaml
+#  - keda-hpa.yaml
 labels:
   - includeSelectors: true
     pairs:
