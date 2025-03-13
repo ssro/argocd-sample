@@ -18,7 +18,7 @@ spec:
     path: ./apps/project-nginx/nginx/overlays/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
+    namespace: nginx-staging
   syncPolicy:
     automated:
       prune: true
@@ -58,7 +58,7 @@ spec:
     path: ./apps/project-nginx/nginx/overlays/production
   destination:
     server: https://kubernetes.default.svc
-    namespace: production
+    namespace: nginx-production
   syncPolicy:
     automated:
       prune: true
