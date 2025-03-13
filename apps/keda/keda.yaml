@@ -36,6 +36,7 @@ spec:
           - PrunePropagationPolicy=foreground
           - PruneLast=true
           - SkipDryRunOnMissingResource=false
+          - ServerSideApply=true
         retry:
           limit: 3
           backoff:
