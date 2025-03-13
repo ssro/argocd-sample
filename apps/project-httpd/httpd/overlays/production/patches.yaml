@@ -87,17 +87,17 @@ metadata:
     scaledobject.keda.sh/transfer-hpa-ownership: "true"
     # autoscaling.keda.sh/paused-replicas: "0"
     autoscaling.keda.sh/paused: "false"
-  name: nginx
+  name: httpd
 spec:
   minReplicaCount: 1
-  maxReplicaCount: 3
+  maxReplicaCount: 2
   scaleTargetRef:
     name: httpd
   pollingInterval: 15
   advanced:
     restoreToOriginalReplicaCount: false
     horizontalPodAutoscalerConfig:
-      name: nginx
+      name: httpd
       behavior:
         scaleUp:
           stabilizationWindowSeconds: 0
