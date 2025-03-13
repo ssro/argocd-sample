@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
   name: nginx
 spec:
   strategy:
@@ -84,6 +86,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   annotations:
+    argocd.argoproj.io/sync-wave: "3"
     scaledobject.keda.sh/transfer-hpa-ownership: "true"
     # autoscaling.keda.sh/paused-replicas: "0"
     autoscaling.keda.sh/paused: "false"
