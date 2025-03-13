@@ -6,6 +6,11 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
+  ignoreDifferences:
+  - group: "apps"
+    kind: "Deployment"
+    jsonPointers:
+    - /spec/replicas
   project: project-httpd
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
@@ -26,12 +31,13 @@ spec:
       - PrunePropagationPolicy=foreground
       - PruneLast=true
       - SkipDryRunOnMissingResource=true
+      - RespectIgnoreDifferences=true
     retry:
-      limit: 5
+      limit: 2
       backoff:
         duration: 5s
         factor: 2
-        maxDuration: 3m
+        maxDuration: 2m
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -41,29 +47,35 @@ metadata:
    finalizers:
      - resources-finalizer.argocd.argoproj.io
 spec:
-   project: project-httpd
-   source:
-     repoURL: https://github.com/ssro/argocd-sample.git
-     targetRevision: main
-     path: ./apps/project-httpd/httpd/overlays/production
-   destination:
-     server: https://kubernetes.default.svc
-     namespace: production
-   syncPolicy:
-     automated:
-       prune: true
-       selfHeal: true
-       allowEmpty: false
-     syncOptions:
-       - ApplyOutOfSyncOnly=true
-       - Validate=true
-       - CreateNamespace=true
-       - PrunePropagationPolicy=foreground
-       - PruneLast=true
-       - SkipDryRunOnMissingResource=true
-     retry:
-       limit: 5
-       backoff:
-         duration: 5s
-         factor: 2
-         maxDuration: 3m
+  ignoreDifferences:
+  - group: "apps"
+    kind: "Deployment"
+    jsonPointers:
+    - /spec/replicas
+  project: project-httpd
+  source:
+    repoURL: https://github.com/ssro/argocd-sample.git
+    targetRevision: main
+    path: ./apps/project-httpd/httpd/overlays/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - SkipDryRunOnMissingResource=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 2m
