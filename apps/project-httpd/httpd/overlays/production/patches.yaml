@@ -90,7 +90,7 @@ metadata:
   name: httpd
 spec:
   minReplicaCount: 1
-  maxReplicaCount: 2
+  maxReplicaCount: 3
   scaleTargetRef:
     name: httpd
   pollingInterval: 15
