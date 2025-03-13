@@ -89,6 +89,6 @@ spec:
     - type: cron
       metadata:
         timezone: Asia/Singapore
-        start: 0 7 * * *
-        end: 0 18 * * *
+        start: 0 18 * * *
+        end: 0 20 * * *
         desiredReplicas: "1"
