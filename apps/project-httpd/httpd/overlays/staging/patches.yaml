@@ -86,3 +86,9 @@ spec:
       metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
       metadata:
         value: "70"
+    - type: cron
+      metadata:
+        timezone: Asia/Singapore
+        start: 0 7 * * *
+        end: 0 18 * * *
+        desiredReplicas: "1" # Setting it up as minReplicaCount
