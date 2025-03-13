@@ -59,7 +59,7 @@ spec:
     path: ./apps/project-httpd/httpd/overlays/production
   destination:
     server: https://kubernetes.default.svc
-    namespace: production
+    namespace: httpd-production
   syncPolicy:
     automated:
       prune: true
