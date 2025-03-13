@@ -48,56 +48,6 @@ spec:
             failureThreshold: 5
             periodSeconds: 5
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: httpd
-spec:
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 100%
-  template:
-    spec:
-      serviceAccountName: httpd
-      containers:
-        - name: httpd
-          env:
-            - name: ENVIRONMENT
-              value: "production"
-          resources:
-            requests:
-              cpu: 10m
-              memory: 16Mi
-            limits:
-              cpu: 30m
-              memory: 32Mi
-          startupProbe:
-            httpGet:
-              path: /
-              port: 80
-            failureThreshold: 10
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            timeoutSeconds: 3
-            successThreshold: 1
-            failureThreshold: 5
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 5
-            timeoutSeconds: 3
-            successThreshold: 1
-            failureThreshold: 5
-            periodSeconds: 5
----
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
