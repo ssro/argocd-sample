@@ -13,7 +13,7 @@ spec:
     metadata:
       name: "keda"
     spec:
-      project: infra
+      project: project-infra
       source:
         chart: keda
         repoURL: https://kedacore.github.io/charts
