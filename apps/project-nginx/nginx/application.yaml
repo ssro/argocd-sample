@@ -27,11 +27,11 @@ spec:
       - PruneLast=true
       - SkipDryRunOnMissingResource=true
     retry:
-      limit: 5
+      limit: 2
       backoff:
         duration: 5s
         factor: 2
-        maxDuration: 3m
+        maxDuration: 2m
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -62,8 +62,8 @@ spec:
        - PruneLast=true
        - SkipDryRunOnMissingResource=true
      retry:
-       limit: 5
+       limit: 2
        backoff:
          duration: 5s
          factor: 2
-         maxDuration: 3m
+         maxDuration: 2m
