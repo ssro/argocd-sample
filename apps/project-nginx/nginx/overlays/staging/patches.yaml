@@ -49,38 +49,38 @@ spec:
             successThreshold: 1
             failureThreshold: 5
             periodSeconds: 5
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
- annotations:
-   argocd.argoproj.io/sync-wave: "2"
-   transfer-hpa: "true"
- name: nginx
-spec:
- minReplicas: 2
- maxReplicas: 3
- metrics:
-   - type: Resource
-     resource:
-       name: cpu
-       target:
-         type: Utilization
-         averageUtilization: 50
- behavior:
-   scaleUp:
-     stabilizationWindowSeconds: 0
-     policies:
-       - type: Pods
-         value: 1
-         periodSeconds: 60
-   scaleDown:
-     stabilizationWindowSeconds: 60
-     policies:
-       - type: Pods
-         value: 1
-         periodSeconds: 60
-     selectPolicy: Max
+# ---
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#  annotations:
+#    argocd.argoproj.io/sync-wave: "2"
+#    transfer-hpa: "true"
+#  name: nginx
+# spec:
+#  minReplicas: 2
+#  maxReplicas: 3
+#  metrics:
+#    - type: Resource
+#      resource:
+#        name: cpu
+#        target:
+#          type: Utilization
+#          averageUtilization: 50
+#  behavior:
+#    scaleUp:
+#      stabilizationWindowSeconds: 0
+#      policies:
+#        - type: Pods
+#          value: 1
+#          periodSeconds: 60
+#    scaleDown:
+#      stabilizationWindowSeconds: 60
+#      policies:
+#        - type: Pods
+#          value: 1
+#          periodSeconds: 60
+#      selectPolicy: Max
 ---
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
