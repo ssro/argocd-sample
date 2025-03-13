@@ -18,7 +18,7 @@ spec:
     path: ./apps/project-httpd/httpd/overlays/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
+    namespace: httpd-staging
   syncPolicy:
     automated:
       prune: true
