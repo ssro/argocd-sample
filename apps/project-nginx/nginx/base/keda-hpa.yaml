@@ -4,9 +4,5 @@ metadata:
   name: nginx
 spec:
   minReplicaCount: 1
-  maxReplicaCount: 3
-  triggers:
-    - type: cpu
-      metricType: Utilization # Allowed types are 'Utilization' or 'AverageValue'
-      metadata:
-        value: "75"
+  maxReplicaCount: 2
+  triggers: []
