@@ -20,7 +20,30 @@ spec:
         targetRevision: "2.16.1"
         helm:
           values: |
+            image:
+              pullPolicy: IfNotPresent
             clusterName: {{ cluster }}
+            operator:
+              revisionHistoryLimit: 0
+            metricsServer:
+              revisionHistoryLimit: 0
+            logging:
+              operator:
+                level: error
+                format: json
+              webhooks:
+                level: error
+                format: json
+            prometheus:
+              metricServer:
+                enabled: true
+                port: 8080
+              operator:
+                enabled: true
+                port: 8080
+              webhooks:
+                enabled: true
+                port: 8080
       destination:
         server: "{{url}}"
         namespace: keda
@@ -38,7 +61,7 @@ spec:
           - SkipDryRunOnMissingResource=false
           - ServerSideApply=true
         retry:
-          limit: 3
+          limit: 2
           backoff:
             duration: 5s
             factor: 2
