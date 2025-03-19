@@ -24,6 +24,16 @@ Then all you have to do is to apply the `root-app.yaml` file to your cluster and
 
 `kubectl apply -f root-app.yaml`
 
+- get the webUI:
+
+`kubectl port-forward svc/argocd-server 8080:443 -n argocd`
+
+- get the initial password of argo for the `admin` user:
+
+`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
+
+- login to https://localhost:8080 (accept the self signed cert)
+
 Now there's ArgoCD deployed in the cluster managing itself and the apps
 
 Have fun!
