@@ -1,0 +1,120 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  ignoreDifferences:
+    - group: "apps"
+      kind: "Deployment"
+      jsonPointers:
+        - /spec/replicas
+  project: argocd
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argo-cd
+    targetRevision: "7.8.11"
+    helm:
+      values: |
+        global:
+          logging:
+            format: text
+            level: warn
+        configs:
+          cm:
+            create: true
+            statusbadge.enabled: true
+            application.instanceLabelKey: app.kubernetes.io/instance
+            server.rbac.log.enforce.enable: "true"
+            exec.enabled: "true"
+            admin.enabled: "true"
+            users.anonymous.enabled: "false"
+            resource.customizations.ignoreResourceUpdates.all: |
+              jsonPointers:
+              - /status
+          rbac:
+            create: true
+          secret:
+            createSecret: true # if false it deletes the existing one
+        controller:
+          replicas: 2
+          resources: {}
+          serviceAccount:
+            create: true
+            name: argocd-application-controller
+            annotations: {}
+            labels: {}
+            automountServiceAccountToken: true
+          metrics:
+            enabled: true
+            applicationLabels:
+              enabled: false
+              labels: []
+            service:
+              annotations: {}
+              labels: {}
+              servicePort: 8082
+              portName: http-metrics
+            serviceMonitor:
+              enabled: false
+            rules:
+              enabled: false
+          clusterAdminAccess:
+            enabled: true
+          clusterRoleRules:
+            enabled: false
+          extraContainers: []
+          env:
+            - name: ARGOCD_CONTROLLER_REPLICAS
+              value: "2"
+            - name: ARGOCD_CONTROLLER_SHARDING_ALGORITHM
+              value: "consistent-hashing"
+          extraArgs:
+            - "--metrics-cache-expiration=24h0m0s"
+        server:
+          name: server
+          replicas: 1
+          autoscaling:
+            enabled: false
+          env:
+            - name: ARGOCD_SESSION_FAILURE_MAX_FAIL_COUNT
+              value: "2"
+            - name: ARGOCD_MAX_CONCURRENT_LOGIN_REQUESTS_COUNT
+              value: "10"
+          extensions:
+            enabled: true
+        repoServer:
+          name: repo-server
+          replicas: 1
+          autoscaling:
+            enabled: false
+        applicationSet:
+          enabled: true
+          name: applicationset-controller
+          replicaCount: 1
+        notifications:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - SkipDryRunOnMissingResource=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 2m
