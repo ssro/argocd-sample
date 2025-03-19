@@ -98,7 +98,7 @@ spec:
           enabled: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: staging
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
