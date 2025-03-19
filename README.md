@@ -10,10 +10,12 @@ To use this repository you must have ~~a working ArgoCD installation deployed in
 
 Deploy ArgoCD using helm (one time operation)
 
+NOTE: make sure this step uses the same custom values (if any) as the ones [here](apps/argocd/application.yaml#L19-L96)
+
 ```
 helm repo add argo-cd https://argoproj.github.io/argo-helm
 helm repo update
-helm install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 7.8.11 # (use "-f /path/to/values.yaml", in addition, for custom values) 
+helm install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 7.8.11 -f /path/to/values.yaml # in case you use custom values 
 ```
 
 Ideally you should pass custom values to helm. [These](apps/argocd/application.yaml#L19-L96) would make the best fit, since it will not restart any pods after deploying the root-app (see below).
