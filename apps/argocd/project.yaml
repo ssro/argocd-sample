@@ -8,12 +8,10 @@ metadata:
 spec:
   description: ArgoCD
   sourceRepos:
-    - "https://github.com/ssro/argocd-sample.git"
-    - "https://kedacore.github.io/charts"
-    - "https://argoproj.github.io/argo-helm"
+    - "*"
   destinations:
-    - namespace: "argocd"
-      server: "https://kubernetes.default.svc"
+    - namespace: "*"
+      server: "*"
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
