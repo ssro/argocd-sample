@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: ArgoCD
+  sourceRepos:
+    - "https://github.com/ssro/argocd-sample.git"
+    - "https://kedacore.github.io/charts"
+    - "https://argoproj.github.io/argo-helm"
+  destinations:
+    - namespace: "argocd"
+      server: "https://kubernetes.default.svc"
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
