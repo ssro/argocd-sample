@@ -64,7 +64,7 @@ spec:
           clusterAdminAccess:
             enabled: true
           clusterRoleRules:
-            enabled: false
+            enabled: true
           extraContainers: []
           env:
             - name: ARGOCD_CONTROLLER_REPLICAS
@@ -107,7 +107,7 @@ spec:
     syncOptions:
       - ApplyOutOfSyncOnly=true
       - Validate=true
-      - CreateNamespace=true
+      - CreateNamespace=false
       - PrunePropagationPolicy=foreground
       - PruneLast=true
       - SkipDryRunOnMissingResource=true
