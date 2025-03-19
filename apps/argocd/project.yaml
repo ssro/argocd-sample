@@ -3,7 +3,7 @@ kind: AppProject
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
-  name: argocd
+  name: default
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
