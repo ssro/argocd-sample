@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: argocd
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
   ignoreDifferences:
     - group: "apps"
@@ -64,7 +62,7 @@ spec:
           clusterAdminAccess:
             enabled: true
           clusterRoleRules:
-            enabled: true
+            enabled: false
           extraContainers: []
           env:
             - name: ARGOCD_CONTROLLER_REPLICAS
