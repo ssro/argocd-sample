@@ -1,6 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
   name: argocd
   namespace: argocd
   finalizers:
@@ -8,12 +10,10 @@ metadata:
 spec:
   description: ArgoCD
   sourceRepos:
-    - "https://github.com/ssro/argocd-sample.git"
-    - "https://kedacore.github.io/charts"
-    - "https://argoproj.github.io/argo-helm"
+    - "*"
   destinations:
-    - namespace: "argocd"
-      server: "https://kubernetes.default.svc"
+    - namespace: "*"
+      server: "*"
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
