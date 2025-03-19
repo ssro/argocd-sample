@@ -9,7 +9,7 @@ spec:
       kind: "Deployment"
       jsonPointers:
         - /spec/replicas
-  project: argocd
+  project: default
   source:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
