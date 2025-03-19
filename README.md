@@ -8,23 +8,19 @@ To use this repository you must have ~~a working ArgoCD installation deployed in
 
 ## Prerequisites:
 
-Deploy ArgoCD using helm
+Deploy ArgoCD using helm (one time operation)
 
 ```
 helm repo add argo-cd https://argoproj.github.io/argo-helm
 helm repo update
-helm upgrade --install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 7.8.11 # (use "-f /path/to/values.yaml", in addition, for custom values) 
+helm install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 7.8.11 # (use "-f /path/to/values.yaml", in addition, for custom values) 
 ```
 
 Ideally you should pass custom values to helm. [These](apps/argocd/application.yaml#L19-L96) would make the best fit, since it will not restart any pods after deploying the root-app (see below).
 
-## Install the root-app
+## Access ArgoCD
 
-Then all you have to do is to apply the `root-app.yaml` file to your cluster and watch all the apps in `apps` folder get deployed in the webUI of argo.
-
-`kubectl apply -f root-app.yaml`
-
-- get the webUI:
+- access argo by doing a port-forward:
 
 `kubectl port-forward svc/argocd-server 8080:443 -n argocd`
 
@@ -34,6 +30,16 @@ Then all you have to do is to apply the `root-app.yaml` file to your cluster and
 
 - login to https://localhost:8080 (accept the self signed cert)
 
-Now there's ArgoCD deployed in the cluster managing itself and the apps
+- link your github repo that contains the `root-app.yaml` to argo here https://localhost:8080/settings/repos
+
+## Install the root-app
+
+Then all you have to do is to apply the `root-app.yaml` file to your cluster and watch all the apps in `apps` folder get deployed in the webUI of argo.
+
+`kubectl apply -f root-app.yaml`
+
+Now there's ArgoCD deployed in the cluster managing itself and the rest of the apps
+
+The initial helm installation can be safely ignored (but do not delete it) as it's not needed anymore for updating ArgoCD.
 
 Have fun!
