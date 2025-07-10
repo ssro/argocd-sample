@@ -1,0 +1,96 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: karpenter-crd
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: devel-ip6
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: {{ cluster }}-karpenter-crd
+    spec:
+      project: infra
+      source:
+        repoURL: oci://public.ecr.aws/karpenter
+        chart: karpenter-crd
+        targetRevision: "1.5.1"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - Validate=true
+          - CreateNamespace=false
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - SkipDryRunOnMissingResource=true
+        retry:
+          limit: 2
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 2m
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: karpenter
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: devel-ip6
+            url: https://kubernetes.default.svc
+            cluster_endpoint: "" # add cluster endpoint without 'https://' prefix
+  template:
+    metadata:
+      name: {{ cluster }}-karpenter
+    spec:
+      project: infra
+      source:
+        repoURL: oci://public.ecr.aws/karpenter
+        chart: karpenter
+        targetRevision: "1.5.1"
+        helm:
+          values: |
+            revisionHistoryLimit: 0
+            replicas: 1
+            settings:
+              clusterName: {{ cluster }}
+              clusterEndpoint: "https://{{ cluster_endpoint }}"
+              interruptionQueueName: "Karpenter-{{ cluster }}"
+              featureGates:
+                spotToSpotConsolidation: false
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - Validate=true
+          - CreateNamespace=false
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - SkipDryRunOnMissingResource=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 2
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 2m
