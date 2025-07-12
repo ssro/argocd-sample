@@ -13,7 +13,7 @@ spec:
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - "https://github.com/ssro/argocd-sample.git"
-    - "public.ecr.aws/karpenter"
+    - "oci://public.ecr.aws/karpenter"
     - "https://kubernetes-sigs.github.io/metrics-server"
   destinations:
     - namespace: "*"
