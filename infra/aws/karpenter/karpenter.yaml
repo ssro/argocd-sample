@@ -68,6 +68,9 @@ spec:
         targetRevision: "1.5.2"
         helm:
           values: |
+            serviceAccount:
+              create: true
+              name: karpenter
             revisionHistoryLimit: 0
             replicas: 1
             settings:
