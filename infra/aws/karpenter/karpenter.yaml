@@ -17,7 +17,7 @@ spec:
     spec:
       project: infra
       source:
-        repoURL: oci://public.ecr.aws/karpenter
+        repoURL: public.ecr.aws/karpenter
         chart: karpenter-crd
         targetRevision: "1.5.2"
       destination:
@@ -63,7 +63,7 @@ spec:
     spec:
       project: infra
       source:
-        repoURL: oci://public.ecr.aws/karpenter
+        repoURL: public.ecr.aws/karpenter
         chart: karpenter
         targetRevision: "1.5.2"
         helm:
