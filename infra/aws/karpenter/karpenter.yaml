@@ -22,7 +22,7 @@ spec:
         targetRevision: "1.5.2"
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
+        namespace: kube-system
       syncPolicy:
         automated:
           prune: true
@@ -78,7 +78,7 @@ spec:
                 spotToSpotConsolidation: false
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
+        namespace: kube-system
       syncPolicy:
         automated:
           prune: true
