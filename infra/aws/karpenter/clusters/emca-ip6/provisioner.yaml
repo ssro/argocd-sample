@@ -1,0 +1,158 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: amd
+spec:
+  kubelet:
+    evictionHard:
+      memory.available: 5%
+      nodefs.available: 10%
+      nodefs.inodesFree: 10%
+    evictionMaxPodGracePeriod: 60
+    evictionSoft:
+      memory.available: 10%
+      nodefs.available: 15%
+      nodefs.inodesFree: 15%
+    evictionSoftGracePeriod:
+      memory.available: 1m0s
+      nodefs.available: 1m30s
+      nodefs.inodesFree: 2m0s
+    imageGCHighThresholdPercent: 85
+    imageGCLowThresholdPercent: 80
+    maxPods: 50
+  metadataOptions:
+    httpEndpoint: enabled
+    httpProtocolIPv6: enabled
+    httpPutResponseHopLimit: 2
+    httpTokens: required
+  amiFamily: Bottlerocket
+  userData: |
+    [settings.kubernetes]
+    "event-qps" = 75
+    "event-burst" = 150
+    "kube-api-qps" = 75
+    "kube-api-burst" = 150
+    "registry-qps" = 75
+    "registry-burst" = 150
+  amiSelectorTerms:
+  - alias: bottlerocket@latest
+  blockDeviceMappings:
+  - deviceName: /dev/xvda
+    ebs:
+      deleteOnTermination: true
+      encrypted: true
+      iops: 3000
+      throughput: 125
+      volumeSize: 4G
+      volumeType: gp3
+  - deviceName: /dev/xvdb
+    ebs:
+      deleteOnTermination: true
+      encrypted: true
+      iops: 3000
+      throughput: 125
+      volumeSize: 20G
+      volumeType: gp3
+  role: Karpenter-emca-ip6-2025071205473433450000001b
+  securityGroupSelectorTerms:
+  - tags:
+      karpenter.sh/discovery/{{cluster}}: "{{cluster}}"
+  subnetSelectorTerms:
+  - tags:
+      karpenter.sh/discovery/{{cluster}}: "{{cluster}}"
+  tags:
+    Name: karpenter.sh/{{cluster}}-amd
+    application: k8s-{{cluster}}
+    business-unit: dss
+    environment: development
+    env: development
+    karpenter.sh/discovery/{{cluster}}: "{{cluster}}"
+    maintainer: dss
+    managed-by: terraform
+    team: team-dss-platform
+---
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: amd
+spec:
+  disruption:
+    consolidateAfter: 1m
+    consolidationPolicy: WhenEmpty
+    budgets:
+    # 100% of nodes can be disrupted if empty at all times.
+    - nodes: "100%"
+      reasons:
+      - Empty
+    # At any other time of day it allows 10% of nodes to be disrupted, when drifted or underutilized and a stricter budget is not active.
+    - nodes: "10%"
+      reasons:
+      - Drifted
+      - Underutilized
+  limits:
+    cpu: "100"
+    memory: 1000Gi
+  template:
+    metadata:
+      labels:
+        sentry: "true"
+    spec:
+      expireAfter: 720h
+      terminationGracePeriod: 1h
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: amd
+      requirements:
+      - key: karpenter.k8s.aws/instance-category
+        operator: In
+        values:
+        - t
+        - c
+        - m
+        - r
+      - key: karpenter.k8s.aws/instance-cpu
+        operator: In
+        values:
+        - "2"
+      - key: karpenter.k8s.aws/instance-hypervisor
+        operator: In
+        values:
+        - nitro
+      - key: karpenter.k8s.aws/instance-generation
+        operator: Gt
+        values:
+        - "2"
+      - key: karpenter.k8s.aws/instance-family
+        operator: In
+        values:
+        - t3a
+        - c4
+        - c5
+        - c5a
+        - m4
+        - m5
+        - m5a
+        - r4
+        - r5
+        - r5a
+      - key: karpenter.k8s.aws/instance-size
+        operator: In
+        values:
+        - medium
+        - large
+      - key: topology.kubernetes.io/zone
+        operator: In
+        values:
+          - '{{AZ}}a'
+          - '{{AZ}}b'
+          - '{{AZ}}c'
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+        - amd64
+      - key: karpenter.sh/capacity-type
+        operator: In
+        values:
+        - spot
+  weight: 1

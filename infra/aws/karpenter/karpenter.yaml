@@ -101,3 +101,48 @@ spec:
             duration: 5s
             factor: 2
             maxDuration: 2m
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: provisioner
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: emca-ip6
+            url: https://kubernetes.default.svc
+            AZ: "ap-southeast-1"
+  template:
+    metadata:
+      name: "{{cluster}}-provisioner"
+    spec:
+      project: infra
+      source:
+        repoURL: https://github.com/ssro/argocd-sample.git
+        targetRevision: infra
+        path: ./infra/aws/karpenter/clusters/{{cluster}}
+      destination:
+        server: "{{url}}"
+        namespace: kube-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - Validate=true
+          - CreateNamespace=false
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - SkipDryRunOnMissingResource=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
