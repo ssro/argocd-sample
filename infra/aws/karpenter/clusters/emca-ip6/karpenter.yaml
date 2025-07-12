@@ -3,21 +3,23 @@ kind: ApplicationSet
 metadata:
   name: karpenter-crd
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   generators:
     - list:
         elements:
-          - cluster: devel-ip6
-            url: https://kubernetes.default.svc
+          - cluster: "emca-ip6"
+            url: "https://kubernetes.default.svc"
   template:
     metadata:
-      name: {{ cluster }}-karpenter-crd
+      name: {{.cluster}}-karpenter-crd
     spec:
       project: infra
       source:
         repoURL: oci://public.ecr.aws/karpenter
         chart: karpenter-crd
-        targetRevision: "1.5.1"
+        targetRevision: "1.5.2"
       destination:
         server: https://kubernetes.default.svc
         namespace: argocd
@@ -46,30 +48,32 @@ kind: ApplicationSet
 metadata:
   name: karpenter
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   generators:
     - list:
         elements:
-          - cluster: devel-ip6
-            url: https://kubernetes.default.svc
-            cluster_endpoint: "" # add cluster endpoint without 'https://' prefix
+          - cluster: "emca-ip6"
+            url: "https://kubernetes.default.svc"
+            cluster_endpoint: "B052704E84C9DAC52C5D7C0A3CF3C36C.yl4.eks-cluster.ap-southeast-1.api.aws" # add cluster endpoint without 'https://' prefix
   template:
     metadata:
-      name: {{ cluster }}-karpenter
+      name: {{.cluster}}-karpenter
     spec:
       project: infra
       source:
         repoURL: oci://public.ecr.aws/karpenter
         chart: karpenter
-        targetRevision: "1.5.1"
+        targetRevision: "1.5.2"
         helm:
           values: |
             revisionHistoryLimit: 0
             replicas: 1
             settings:
-              clusterName: {{ cluster }}
-              clusterEndpoint: "https://{{ cluster_endpoint }}"
-              interruptionQueueName: "Karpenter-{{ cluster }}"
+              clusterName: {{.cluster}}
+              clusterEndpoint: "https://{{.cluster_endpoint}}"
+              interruptionQueueName: "Karpenter-{{.cluster}}"
               featureGates:
                 spotToSpotConsolidation: false
       destination:
