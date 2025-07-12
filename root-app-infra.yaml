@@ -11,7 +11,7 @@ spec:
     directory:
       recurse: false
     repoURL: https://github.com/ssro/argocd-sample.git
-    targetRevision: main
+    targetRevision: infra
     path: ./infra/aws
   destination:
     server: https://kubernetes.default.svc

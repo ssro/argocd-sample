@@ -8,5 +8,5 @@ resources:
 #  - ./external-dns
 #  - ./istio
   - ./karpenter
-#  - ./metrics-server
+  - ./metrics-server
 #  - ./nginx-ingress
