@@ -13,7 +13,7 @@ spec:
             url: "https://kubernetes.default.svc"
   template:
     metadata:
-      name: {{.cluster}}-karpenter-crd
+      name: "{{cluster}}-karpenter-crd"
     spec:
       project: infra
       source:
@@ -56,10 +56,10 @@ spec:
         elements:
           - cluster: "emca-ip6"
             url: "https://kubernetes.default.svc"
-            cluster_endpoint: "B052704E84C9DAC52C5D7C0A3CF3C36C.yl4.eks-cluster.ap-southeast-1.api.aws" # add cluster endpoint without 'https://' prefix
+            cluster_endpoint: "https://B052704E84C9DAC52C5D7C0A3CF3C36C.yl4.eks-cluster.ap-southeast-1.api.aws" # add cluster endpoint
   template:
     metadata:
-      name: {{.cluster}}-karpenter
+      name: "{{cluster}}-karpenter"
     spec:
       project: infra
       source:
@@ -71,9 +71,9 @@ spec:
             revisionHistoryLimit: 0
             replicas: 1
             settings:
-              clusterName: {{.cluster}}
-              clusterEndpoint: "https://{{.cluster_endpoint}}"
-              interruptionQueueName: "Karpenter-{{.cluster}}"
+              clusterName: {{cluster}}
+              clusterEndpoint: {{cluster_endpoint}}
+              interruptionQueueName: Karpenter-{{cluster}}
               featureGates:
                 spotToSpotConsolidation: false
       destination:
