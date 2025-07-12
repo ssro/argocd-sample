@@ -53,23 +53,23 @@ spec:
       throughput: 125
       volumeSize: 20G
       volumeType: gp3
-  role: Karpenter-emca-ip6-2025071205473433450000001b
+  role: {{ KARPENTER_NODE_ROLE }}
   securityGroupSelectorTerms:
   - tags:
-      karpenter.sh/discovery/emca-ip6: "emca-ip6"
+      karpenter.sh/discovery/{{cluster_name}}: "{{cluster_name}}"
   subnetSelectorTerms:
   - tags:
-      karpenter.sh/discovery/emca-ip6: "emca-ip6"
+      karpenter.sh/discovery/{{cluster_name}}: "{{cluster_name}}"
   tags:
     Name: karpenter.sh/emca-ip6-amd
     application: k8s-emca-ip6
-    business-unit: dss
+    business-unit: emca
     environment: development
     env: development
-    karpenter.sh/discovery/emca-ip6: "emca-ip6"
-    maintainer: dss
+    karpenter.sh/discovery/{{cluster_name}}: "{{cluster_name}}"
+    maintainer: emca
     managed-by: terraform
-    team: team-dss-platform
+    team: emca
 ---
 apiVersion: karpenter.sh/v1
 kind: NodePool
@@ -144,9 +144,9 @@ spec:
       - key: topology.kubernetes.io/zone
         operator: In
         values:
-          - 'ap-southeast-1a'
-          - 'ap-southeast-1b'
-          - 'ap-southeast-1c'
+          - '{{AZ}}a'
+          - '{{AZ}}b'
+          - '{{AZ}}c'
       - key: kubernetes.io/arch
         operator: In
         values:
