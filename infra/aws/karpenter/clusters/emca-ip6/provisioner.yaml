@@ -56,17 +56,17 @@ spec:
   role: Karpenter-emca-ip6-2025071205473433450000001b
   securityGroupSelectorTerms:
   - tags:
-      karpenter.sh/discovery/{{cluster}}: "{{cluster}}"
+      karpenter.sh/discovery/emca-ip6: "emca-ip6"
   subnetSelectorTerms:
   - tags:
-      karpenter.sh/discovery/{{cluster}}: "{{cluster}}"
+      karpenter.sh/discovery/emca-ip6: "emca-ip6"
   tags:
-    Name: karpenter.sh/{{cluster}}-amd
-    application: k8s-{{cluster}}
+    Name: karpenter.sh/emca-ip6-amd
+    application: k8s-emca-ip6
     business-unit: dss
     environment: development
     env: development
-    karpenter.sh/discovery/{{cluster}}: "{{cluster}}"
+    karpenter.sh/discovery/emca-ip6: "emca-ip6"
     maintainer: dss
     managed-by: terraform
     team: team-dss-platform
@@ -144,9 +144,9 @@ spec:
       - key: topology.kubernetes.io/zone
         operator: In
         values:
-          - '{{AZ}}a'
-          - '{{AZ}}b'
-          - '{{AZ}}c'
+          - 'ap-southeast-1a'
+          - 'ap-southeast-1b'
+          - 'ap-southeast-1c'
       - key: kubernetes.io/arch
         operator: In
         values:
