@@ -7,6 +7,6 @@ resources:
 #  - ./eck
 #  - ./external-dns
 #  - ./istio
-  - ./karpenter
-  - ./metrics-server
+#  - ./karpenter
+#  - ./metrics-server
 #  - ./nginx-ingress
