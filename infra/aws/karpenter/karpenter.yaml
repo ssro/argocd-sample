@@ -13,16 +13,16 @@ spec:
             url: "https://kubernetes.default.svc"
   template:
     metadata:
-      name: {{.cluster}}-karpenter-crd
+      name: "{{cluster}}-karpenter-crd"
     spec:
       project: infra
       source:
-        repoURL: oci://public.ecr.aws/karpenter
+        repoURL: public.ecr.aws/karpenter
         chart: karpenter-crd
         targetRevision: "1.5.2"
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
+        namespace: kube-system
       syncPolicy:
         automated:
           prune: true
@@ -56,29 +56,32 @@ spec:
         elements:
           - cluster: "emca-ip6"
             url: "https://kubernetes.default.svc"
-            cluster_endpoint: "B052704E84C9DAC52C5D7C0A3CF3C36C.yl4.eks-cluster.ap-southeast-1.api.aws" # add cluster endpoint without 'https://' prefix
+            cluster_endpoint: "" # add cluster endpoint
   template:
     metadata:
-      name: {{.cluster}}-karpenter
+      name: "{{cluster}}-karpenter"
     spec:
       project: infra
       source:
-        repoURL: oci://public.ecr.aws/karpenter
+        repoURL: public.ecr.aws/karpenter
         chart: karpenter
         targetRevision: "1.5.2"
         helm:
           values: |
+            serviceAccount:
+              create: true
+              name: karpenter
             revisionHistoryLimit: 0
             replicas: 1
             settings:
-              clusterName: {{.cluster}}
-              clusterEndpoint: "https://{{.cluster_endpoint}}"
-              interruptionQueueName: "Karpenter-{{.cluster}}"
+              clusterName: {{cluster}}
+              clusterEndpoint: {{cluster_endpoint}}
+              interruptionQueueName: Karpenter-{{cluster}}
               featureGates:
                 spotToSpotConsolidation: false
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
+        namespace: kube-system
       syncPolicy:
         automated:
           prune: true
@@ -98,3 +101,47 @@ spec:
             duration: 5s
             factor: 2
             maxDuration: 2m
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: provisioner
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: emca-ip6
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: "{{cluster}}-provisioner"
+    spec:
+      project: infra
+      source:
+        repoURL: https://github.com/ssro/argocd-sample.git
+        targetRevision: infra
+        path: ./infra/aws/karpenter/clusters/{{cluster}}
+      destination:
+        server: "{{url}}"
+        namespace: kube-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - Validate=true
+          - CreateNamespace=false
+          - PrunePropagationPolicy=foreground
+          - PruneLast=true
+          - SkipDryRunOnMissingResource=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m

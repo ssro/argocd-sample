@@ -12,7 +12,7 @@ spec:
   description: Project
   # Allow manifests to deploy from any Git repos
   sourceRepos:
-    - "https://github.com/ssro/argocd-sample.git"
+    - "*"
   destinations:
     - namespace: "*"
       server: "*"
