@@ -17,8 +17,7 @@ spec:
     targetRevision: main
     path: ./apps/project-nginx/nginx/overlays/staging
   destination:
-    name: "local"
-    # server: https://kubernetes.default.svc
+    server: https://kubernetes.default.svc
     namespace: nginx-staging
   syncPolicy:
     automated:
@@ -58,8 +57,7 @@ spec:
     targetRevision: main
     path: ./apps/project-nginx/nginx/overlays/production
   destination:
-    name: "local"
-    # server: https://kubernetes.default.svc
+    server: https://kubernetes.default.svc
     namespace: nginx-production
   syncPolicy:
     automated:
