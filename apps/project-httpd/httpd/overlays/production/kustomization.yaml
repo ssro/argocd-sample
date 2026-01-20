@@ -6,5 +6,7 @@ namespace: httpd-production
 images:
 - name: public.ecr.aws/docker/library/httpd
   newTag: "2.4-alpine"
+- name: httpd
+  newTag: 2.4.51-alpine
 patches:
 - path: patches.yaml
