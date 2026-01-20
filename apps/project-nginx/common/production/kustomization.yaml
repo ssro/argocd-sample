@@ -3,3 +3,6 @@ kind: Kustomization
 namespace: nginx-production
 resources:
   - serviceAccount.yaml
+images:
+  - name: nginx
+    newTag: 1.29.4-alpine
