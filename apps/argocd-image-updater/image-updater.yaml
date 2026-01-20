@@ -20,5 +20,15 @@ spec:
             forceUpdate: true
             platforms: ["linux/arm64"] # ,linux/amd64"
             updateStrategy: "newest-build"
-            allowTags: "regexp:^(1\\.29|2\\.4)\\.[0-9]+-alpine$"
+            allowTags: "regexp:^1\\.29\\.[0-9]+-alpine$"
+            ignoreTags: ["latest"]
+    - namePattern: "httpd-*"
+      images:
+        - alias: "httpd"
+          imageName: "httpd:2"
+          commonUpdateSettings:
+            forceUpdate: true
+            platforms: ["linux/arm64"] # ,linux/amd64"
+            updateStrategy: "newest-build"
+            allowTags: "regexp:^2\\.4\\.[0-9]+-alpine$"
             ignoreTags: ["latest"]
