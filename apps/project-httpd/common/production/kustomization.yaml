@@ -3,3 +3,6 @@ kind: Kustomization
 namespace: httpd-production
 resources:
   - serviceAccount.yaml
+images:
+  - name: httpd
+    newTag: 2.4.53-alpine
