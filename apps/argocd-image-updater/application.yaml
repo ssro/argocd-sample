@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  ignoreDifferences:
+    - group: "apps"
+      kind: "Deployment"
+      jsonPointers:
+        - /spec/replicas
+  project: default
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    chart: argocd-image-updater
+    targetRevision: "1.0.4"
+    helm:
+      values: |
+        replicaCount: 1
+        image:
+          pullPolicy: IfNotPresent
+        config:
+          log.level: "info"
+          git.user: "argocd-image-updater"
+          git.email: "noreply@argoproj.io"
+          git.commit-message-template: |
+            build: automatic update of {{ .AppName }}
+            {{ range .AppChanges -}}
+            updates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'
+            {{ end -}}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - Validate=true
+      - CreateNamespace=false
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true
+      - SkipDryRunOnMissingResource=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 2m

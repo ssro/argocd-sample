@@ -15,7 +15,7 @@ spec:
   source:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
-    targetRevision: "8.1.3"
+    targetRevision: "9.3.4"
     helm:
       values: |
         global:
@@ -32,13 +32,10 @@ spec:
             exec.enabled: "true"
             admin.enabled: "true"
             users.anonymous.enabled: "false"
-            resource.customizations.ignoreResourceUpdates.all: |
-              jsonPointers:
-              - /status
           rbac:
             create: true
           secret:
-            createSecret: true # if false it deletes the existing one
+            createSecret: true
         controller:
           replicas: 2
           resources: {}
