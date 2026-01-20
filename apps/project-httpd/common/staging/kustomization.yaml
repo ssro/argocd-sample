@@ -3,3 +3,6 @@ kind: Kustomization
 namespace: httpd-staging
 resources:
   - serviceAccount.yaml
+images:
+  - name: httpd
+    newTag: 2.4.51-alpine
