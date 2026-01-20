@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
 #  - ./argocd
  - ./project-nginx
- - ./project-httpd
+#  - ./project-httpd
  - ./keda
  - ./argocd-image-updater
