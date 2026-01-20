@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: project-httpd-common-staging
+  name: httpd-common-staging
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
