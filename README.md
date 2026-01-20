@@ -18,7 +18,12 @@ helm repo update
 helm upgrade --install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 9.3.4 -f /path/to/values.yaml # in case you use custom values 
 ```
 
-Ideally you should pass custom values to helm. [These](apps/argocd/application.yaml#L19-L96) would make the best fit, since it will not restart any pods after deploying the root-app (see below).
+Deploy argocd-image-updater using helm (one time operation)
+
+NOTE: make sure this step uses the same custom values (if any) as the ones [here](apps/argocd-image-updater/application.yaml#L22-L33)
+
+```
+helm upgrade --install argocd-image-updater argo-cd/argocd-image-updater --namespace=argocd --create-namespace --version 1.0.4 -f /path/to/values.yaml # in case you use custom values 
 
 ## Access ArgoCD
 
