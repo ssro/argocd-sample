@@ -1,0 +1,23 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: multi-app-image-updater
+spec:
+  namespace: argocd
+  writeBackConfig:
+    method: "git"
+    gitConfig:
+      repository: "https://github.com/ssro/argocd-sample.git"
+      branch: "main"
+      writeBackTarget: "kustomization:./"
+  applicationRefs:
+    - namePattern: "nginx-*"
+      images:
+        - alias: "nginx"
+          imageName: "nginx:1.20"
+          commonUpdateSettings:
+            forceUpdate: true
+            platforms: ["linux/arm64"] # ,linux/amd64"
+            updateStrategy: "newest-build"
+            allowTags: "regexp:^(1\\.29|2\\.4)\\.[0-9]+-alpine$"
+            ignoreTags: ["latest"]
