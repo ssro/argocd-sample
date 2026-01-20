@@ -5,6 +5,6 @@ resources:
 namespace: nginx-staging
 images:
 - name: nginx
-  newTag: "1.27"
+  newTag: 1.29.4-alpine
 patches:
 - path: patches.yaml
