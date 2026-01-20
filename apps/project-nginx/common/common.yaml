@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: project-nginx-common-staging
+  name: nginx-common-staging
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -36,7 +36,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: project-nginx-common-production
+  name: nginx-common-production
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
