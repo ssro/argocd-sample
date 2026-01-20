@@ -3,6 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-wave: "6"
   name: nginx-staging
   namespace: argocd
   finalizers:
@@ -45,6 +46,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-wave: "5"
   name: nginx-production
   namespace: argocd
   finalizers:
