@@ -23,7 +23,8 @@ Deploy argocd-image-updater using helm (one time operation)
 NOTE: make sure this step uses the same custom values (if any) as the ones [here](apps/argocd-image-updater/application.yaml#L22-L33)
 
 ```
-helm upgrade --install argocd-image-updater argo-cd/argocd-image-updater --namespace=argocd --create-namespace --version 1.0.4 -f /path/to/values.yaml # in case you use custom values 
+helm upgrade --install argocd-image-updater argo-cd/argocd-image-updater --namespace=argocd --create-namespace --version 1.0.4 -f /path/to/values.yaml # in case you use custom values
+```
 
 ## Access ArgoCD
 
