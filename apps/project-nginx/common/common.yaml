@@ -1,6 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-wave: "6"
   name: nginx-common-staging
   namespace: argocd
   finalizers:
@@ -36,6 +39,9 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+    argocd.argoproj.io/sync-wave: "5"
   name: nginx-common-production
   namespace: argocd
   finalizers:
