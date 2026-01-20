@@ -5,3 +5,4 @@ resources:
  - ./project-nginx
  - ./project-httpd
  - ./keda
+ - ./argocd-image-updater
