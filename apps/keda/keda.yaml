@@ -12,6 +12,8 @@ spec:
   template:
     metadata:
       name: "keda"
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: .
     spec:
       project: project-infra
       source:
