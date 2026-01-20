@@ -4,7 +4,9 @@ resources:
 - ../../base
 namespace: httpd-staging
 images:
-  - name: public.ecr.aws/docker/library/httpd
-    newTag: "2.4-alpine"
+- name: public.ecr.aws/docker/library/httpd
+  newTag: "2.4-alpine"
+- name: httpd
+  newTag: 2.4.52-alpine
 patches:
 - path: patches.yaml
