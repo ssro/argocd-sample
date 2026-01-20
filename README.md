@@ -15,7 +15,7 @@ NOTE: make sure this step uses the same custom values (if any) as the ones [here
 ```
 helm repo add argo-cd https://argoproj.github.io/argo-helm
 helm repo update
-helm upgrade --install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 7.8.11 -f /path/to/values.yaml # in case you use custom values 
+helm upgrade --install argocd argo-cd/argo-cd --namespace=argocd --create-namespace --version 9.3.4 -f /path/to/values.yaml # in case you use custom values 
 ```
 
 Ideally you should pass custom values to helm. [These](apps/argocd/application.yaml#L19-L96) would make the best fit, since it will not restart any pods after deploying the root-app (see below).
