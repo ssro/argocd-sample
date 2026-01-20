@@ -7,6 +7,6 @@ images:
 - name: public.ecr.aws/docker/library/httpd
   newTag: "2.4-alpine"
 - name: httpd
-  newTag: 2.4.51-alpine
+  newTag: 2.4.53-alpine
 patches:
 - path: patches.yaml
