@@ -4,4 +4,4 @@ resources:
 #  - ./argocd
  - ./project-nginx
  - ./project-httpd
-#  - ./keda
+ - ./keda
