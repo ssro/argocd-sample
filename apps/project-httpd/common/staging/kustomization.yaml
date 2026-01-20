@@ -5,4 +5,4 @@ resources:
   - serviceAccount.yaml
 images:
   - name: httpd
-    newTag: 2.4.51-alpine
+    newTag: 2.4.53-alpine
