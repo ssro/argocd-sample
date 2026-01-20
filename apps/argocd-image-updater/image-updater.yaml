@@ -2,6 +2,7 @@ apiVersion: argocd-image-updater.argoproj.io/v1alpha1
 kind: ImageUpdater
 metadata:
   name: multi-app-image-updater
+  namespace: argocd
 spec:
   namespace: argocd
   writeBackConfig:
