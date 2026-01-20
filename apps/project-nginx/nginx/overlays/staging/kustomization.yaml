@@ -6,5 +6,7 @@ namespace: nginx-staging
 images:
 - name: nginx
   newTag: 1.29.4-alpine
+- name: public.ecr.aws/nginx/nginx
+  newTag: 1.29.4-alpine
 patches:
 - path: patches.yaml
