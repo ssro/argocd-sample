@@ -3,6 +3,8 @@ kind: ImageUpdater
 metadata:
   name: multi-app-image-updater
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   namespace: argocd
   writeBackConfig:
