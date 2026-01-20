@@ -44,9 +44,11 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-   name: httpd-production
-   namespace: argocd
-   finalizers:
+  annotations:
+    argocd.argoproj.io/manifest-generate-paths: .
+  name: httpd-production
+  namespace: argocd
+  finalizers:
      - resources-finalizer.argocd.argoproj.io
 spec:
   ignoreDifferences:
