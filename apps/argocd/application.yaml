@@ -64,11 +64,6 @@ spec:
           clusterRoleRules:
             enabled: false
           extraContainers: []
-          env:
-            - name: ARGOCD_CONTROLLER_REPLICAS
-              value: "2"
-            - name: ARGOCD_CONTROLLER_SHARDING_ALGORITHM
-              value: "consistent-hashing"
           extraArgs:
             - "--metrics-cache-expiration=24h0m0s"
         server:
