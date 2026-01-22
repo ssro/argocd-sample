@@ -3,7 +3,6 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
-    argocd.argoproj.io/sync-wave: "0"
   name: root-app
   namespace: argocd
   finalizers:
@@ -15,9 +14,10 @@ spec:
       recurse: false
     repoURL: https://github.com/ssro/argocd-sample.git
     targetRevision: main
-    path: ./apps
+    path: apps
   destination:
     server: https://kubernetes.default.svc
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
