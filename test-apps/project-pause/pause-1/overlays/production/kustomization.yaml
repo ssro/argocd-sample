@@ -10,8 +10,7 @@ labels:
 
 resources:
   - deployment.yaml
-  - service.yaml
 
 images:
   - name: public.ecr.aws/eks-distro/kubernetes/pause
-    newTag: "3.10"
+    newTag: "3.9"

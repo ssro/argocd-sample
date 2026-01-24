@@ -1,9 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    argocd.argoproj.io/sync-options: ServerSideApply=true
-    argocd.argoproj.io/sync-wave: "2"
   labels:
     app: pause-0
     project: project-pause

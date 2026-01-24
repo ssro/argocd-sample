@@ -10,7 +10,6 @@ labels:
 
 resources:
   - deployment.yaml
-  - service.yaml
 
 images:
   - name: public.ecr.aws/eks-distro/kubernetes/pause
