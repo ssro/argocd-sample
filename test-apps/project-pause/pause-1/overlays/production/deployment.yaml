@@ -23,7 +23,7 @@ spec:
     metadata:
       annotations:
         ad.datadoghq.com/tags: '{"app":"app","component":"component","subcomponent":"subcomponent","environment":"environment","git.commit.sha":
-                  "12596363b3de40b06f981fb85d82312e8c0ed512", "git.repository_url": "git.repository_url", "team":
+                  "22596363b3de40b06f981fb85d82312e8c0ed512", "git.repository_url": "git.repository_url", "team":
                   "team", "businessunit": "businessunit"}'
       labels:
         app: pause-1
@@ -34,7 +34,7 @@ spec:
             - name: ENVIRONMENT
               value: production
             - name: UUID
-              value: "12596363b3de40b06f981fb85d82312e8c0ed511"
+              value: "22596363b3de40b06f981fb85d82312e8c0ed511"
           image: public.ecr.aws/eks-distro/kubernetes/pause
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: pause-1
