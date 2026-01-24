@@ -4,6 +4,8 @@ metadata:
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
     argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
+    argocd.argoproj.io/sync-options: ServerSideApply=true
   name: pause-production-3
   namespace: argocd
   finalizers:
