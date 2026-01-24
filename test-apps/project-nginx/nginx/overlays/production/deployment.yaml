@@ -22,7 +22,7 @@ spec:
   template:
     metadata:
       annotations:
-        uuid: {"9dc51dfa-7792-4280-85c8-14997b112c47"}
+        uuid: "9dc51dfa-7792-4280-85c8-14997b112c47"
       labels:
         app: nginx
         project: project-nginx
