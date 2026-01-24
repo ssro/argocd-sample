@@ -22,7 +22,9 @@ spec:
   template:
     metadata:
       annotations:
-        uuid: "9dc51dfa-7792-4280-85c8-14997b112c47"
+        ad.datadoghq.com/tags: '{"app":"app","component":"component","subcomponent":"subcomponent","environment":"environment","git.commit.sha":
+                  "22596363b3de40b06f981fb85d82312e8c0ed511", "git.repository_url": "git.repository_url", "team":
+                  "team", "businessunit": "businessunit"}'
       labels:
         app: nginx
         project: project-nginx
@@ -32,9 +34,9 @@ spec:
             - name: ENVIRONMENT
               value: production
             - name: UUID
-              value: "9dc51dfa-7792-4280-85c8-14997b112c47"
+              value: "22596363b3de40b06f981fb85d82312e8c0ed511"
           image: public.ecr.aws/nginx/nginx
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 5
             httpGet:
