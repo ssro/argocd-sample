@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true
     argocd.argoproj.io/sync-wave: "2"
   labels:
     app: pause-0
@@ -23,7 +24,7 @@ spec:
     metadata:
       annotations:
         ad.datadoghq.com/tags: '{"app":"app","component":"component","subcomponent":"subcomponent","environment":"environment","git.commit.sha":
-                  "22596363b3de40b06f981fb85d82312e8c0ed512", "git.repository_url": "git.repository_url", "team":
+                  "22596363b3de40b06f981fb85d82311e8c0ed512", "git.repository_url": "git.repository_url", "team":
                   "team", "businessunit": "businessunit"}'
       labels:
         app: pause-0
@@ -34,7 +35,7 @@ spec:
             - name: ENVIRONMENT
               value: production
             - name: UUID
-              value: "22596363b3de40b06f981fb85d82312e8c0ed511"
+              value: "22596363b3de40b06f981fb85d82311e8c0ed511"
           image: public.ecr.aws/eks-distro/kubernetes/pause
           imagePullPolicy: IfNotPresent
           name: pause-0
