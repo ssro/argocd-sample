@@ -15,4 +15,4 @@ resources:
 
 images:
   - name: public.ecr.aws/nginx/nginx
-    newTag: 1.29.2-alpine
+    newTag: 1.29.3-alpine

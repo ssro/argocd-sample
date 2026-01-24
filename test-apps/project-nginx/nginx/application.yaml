@@ -9,11 +9,11 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  ignoreDifferences:
-  - group: "apps"
-    kind: "Deployment"
-    jsonPointers:
-    - /spec/replicas
+#  ignoreDifferences:
+#  - group: "apps"
+#    kind: "Deployment"
+#    jsonPointers:
+#    - /spec/replicas
   project: project-nginx
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
