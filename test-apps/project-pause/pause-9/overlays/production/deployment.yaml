@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: pause-9
+    project: project-pause
+  name: pause-9
+spec:
+  replicas: 5
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: pause-9
+      project: project-pause
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        ad.datadoghq.com/tags: '{"app":"app","component":"component","subcomponent":"subcomponent","environment":"environment","git.commit.sha":
+                  "22596363b3de40b06f981fb85d82312e8c0ed512", "git.repository_url": "git.repository_url", "team":
+                  "team", "businessunit": "businessunit"}'
+      labels:
+        app: pause-9
+        project: project-pause
+    spec:
+      containers:
+        - env:
+            - name: ENVIRONMENT
+              value: production
+            - name: UUID
+              value: "22596363b3de40b06f981fb85d82312e8c0ed511"
+          image: public.ecr.aws/eks-distro/kubernetes/pause
+          imagePullPolicy: IfNotPresent
+          name: pause-9
+          resources:
+            limits:
+              cpu: 100m
+              memory: 32Mi
+            requests:
+              cpu: 1m
+              memory: 8Mi
+

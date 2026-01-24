@@ -4,15 +4,15 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "2"
   labels:
-    app: nginx
-    project: project-nginx
-  name: nginx
+    app: pause-7
+    project: project-pause
+  name: pause-7
 spec:
   ports:
     - name: http
       port: 80
       protocol: TCP
   selector:
-    app: nginx
-    project: project-nginx
+    app: pause-7
+    project: project-pause
   type: ClusterIP

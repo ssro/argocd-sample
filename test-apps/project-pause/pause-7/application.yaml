@@ -4,24 +4,19 @@ metadata:
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
     argocd.argoproj.io/sync-wave: "5"
-  name: nginx-production
+  name: pause-production
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-#  ignoreDifferences:
-#  - group: "apps"
-#    kind: "Deployment"
-#    jsonPointers:
-#    - /spec/replicas
-  project: project-nginx
+  project: project-pause
   source:
     repoURL: https://github.com/ssro/argocd-sample.git
     targetRevision: root-app-test
-    path: ./test-apps/project-nginx/nginx/overlays/production
+    path: ./test-apps/project-pause/pause-7/overlays/production
   destination:
     server: https://kubernetes.default.svc
-    namespace: nginx-production
+    namespace: pause-production
   syncPolicy:
     automated:
       prune: true
