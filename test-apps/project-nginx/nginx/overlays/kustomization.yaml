@@ -9,8 +9,8 @@ labels:
       project: project-nginx
 
 resources:
-  - deployment.yaml
   - serviceAccount.yaml
+  - deployment.yaml
   - service.yaml
 
 images:
