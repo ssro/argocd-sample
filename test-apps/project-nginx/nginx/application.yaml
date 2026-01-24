@@ -34,7 +34,7 @@ spec:
       - PrunePropagationPolicy=foreground
       - PruneLast=true
       - SkipDryRunOnMissingResource=true
-      - RespectIgnoreDifferences=true
+      # - RespectIgnoreDifferences=true
     retry:
       limit: 2
       backoff:
