@@ -10,7 +10,7 @@ labels:
 
 resources:
   - deployment.yaml
-  - service-account.yaml
+  - serviceAccount.yaml
   - service.yaml
 
 images:
