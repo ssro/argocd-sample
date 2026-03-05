@@ -87,4 +87,4 @@ spec:
     - type: cpu
       metricType: AverageValue # Allowed types are 'Utilization' or 'AverageValue'
       metadata:
-        value: "300"
+        value: "100m"
