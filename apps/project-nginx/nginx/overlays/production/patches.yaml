@@ -60,8 +60,8 @@ metadata:
     autoscaling.keda.sh/paused: "false"
   name: nginx
 spec:
-  minReplicaCount: 1
-  maxReplicaCount: 3
+  minReplicaCount: 2
+  maxReplicaCount: 10
   scaleTargetRef:
     name: nginx
   pollingInterval: 15
