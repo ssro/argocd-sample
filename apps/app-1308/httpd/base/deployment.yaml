@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-1308
+  labels:
+    app: app-1308
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-1308
+  template:
+    metadata:
+      labels:
+        app: app-1308
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

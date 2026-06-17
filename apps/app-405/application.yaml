@@ -16,7 +16,7 @@ spec:
     path: apps/app-405/httpd/overlays/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: ns-app-405
+    namespace: app-ns
   syncPolicy:
     automated:
       prune: true

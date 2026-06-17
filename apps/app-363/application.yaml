@@ -16,7 +16,7 @@ spec:
     path: apps/app-363/httpd/overlays/staging
   destination:
     server: https://kubernetes.default.svc
-    namespace: ns-app-363
+    namespace: app-ns
   syncPolicy:
     automated:
       prune: true

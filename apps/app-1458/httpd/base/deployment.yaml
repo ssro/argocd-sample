@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-1458
+  labels:
+    app: app-1458
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-1458
+  template:
+    metadata:
+      labels:
+        app: app-1458
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80
