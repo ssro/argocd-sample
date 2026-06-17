@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-928
+  labels:
+    app: app-928
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-928
+  template:
+    metadata:
+      labels:
+        app: app-928
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

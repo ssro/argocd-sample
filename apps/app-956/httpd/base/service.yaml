@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-956
+  labels:
+    app: app-956
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-956

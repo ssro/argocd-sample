@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-934
+  labels:
+    app: app-934
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-934

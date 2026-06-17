@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-574
+  labels:
+    app: app-574
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-574

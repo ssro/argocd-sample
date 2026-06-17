@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-981
+  labels:
+    app: app-981
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-981

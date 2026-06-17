@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-530
+  labels:
+    app: app-530
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-530

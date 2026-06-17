@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-690
+  labels:
+    app: app-690
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-690
+  template:
+    metadata:
+      labels:
+        app: app-690
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

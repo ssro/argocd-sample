@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-545
+  labels:
+    app: app-545
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-545

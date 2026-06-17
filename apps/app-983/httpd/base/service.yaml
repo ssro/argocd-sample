@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-983
+  labels:
+    app: app-983
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-983

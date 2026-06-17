@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-691
+  labels:
+    app: app-691
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-691

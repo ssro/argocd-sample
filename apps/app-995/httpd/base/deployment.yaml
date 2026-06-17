@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-995
+  labels:
+    app: app-995
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-995
+  template:
+    metadata:
+      labels:
+        app: app-995
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

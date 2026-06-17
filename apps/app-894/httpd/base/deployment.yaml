@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-894
+  labels:
+    app: app-894
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-894
+  template:
+    metadata:
+      labels:
+        app: app-894
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

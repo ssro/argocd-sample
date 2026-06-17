@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-615
+  labels:
+    app: app-615
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-615
+  template:
+    metadata:
+      labels:
+        app: app-615
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

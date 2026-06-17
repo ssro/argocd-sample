@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-724
+  labels:
+    app: app-724
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-724

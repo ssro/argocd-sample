@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-855
+  labels:
+    app: app-855
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-855

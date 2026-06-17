@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-508
+  labels:
+    app: app-508
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-508

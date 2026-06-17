@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-532
+  labels:
+    app: app-532
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-532
+  template:
+    metadata:
+      labels:
+        app: app-532
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

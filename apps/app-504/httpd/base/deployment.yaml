@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-504
+  labels:
+    app: app-504
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-504
+  template:
+    metadata:
+      labels:
+        app: app-504
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

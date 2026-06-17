@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-760
+  labels:
+    app: app-760
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-760
+  template:
+    metadata:
+      labels:
+        app: app-760
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80
