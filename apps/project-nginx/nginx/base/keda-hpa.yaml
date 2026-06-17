@@ -1,8 +1,0 @@
-apiVersion: keda.sh/v1alpha1
-kind: ScaledObject
-metadata:
-  name: nginx
-spec:
-  minReplicaCount: 1
-  maxReplicaCount: 2
-  triggers: []

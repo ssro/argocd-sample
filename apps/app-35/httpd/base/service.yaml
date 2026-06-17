@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-35
+  labels:
+    app: app-35
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-35
