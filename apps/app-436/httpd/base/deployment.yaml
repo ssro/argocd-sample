@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-436
+  labels:
+    app: app-436
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-436
+  template:
+    metadata:
+      labels:
+        app: app-436
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

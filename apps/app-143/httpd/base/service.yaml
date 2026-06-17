@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-143
+  labels:
+    app: app-143
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-143

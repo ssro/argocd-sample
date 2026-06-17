@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-119
+  labels:
+    app: app-119
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-119

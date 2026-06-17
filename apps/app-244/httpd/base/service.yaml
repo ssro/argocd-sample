@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-244
+  labels:
+    app: app-244
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-244

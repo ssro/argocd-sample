@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-395
+  labels:
+    app: app-395
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-395

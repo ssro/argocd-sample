@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-301
+  labels:
+    app: app-301
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-301
+  template:
+    metadata:
+      labels:
+        app: app-301
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

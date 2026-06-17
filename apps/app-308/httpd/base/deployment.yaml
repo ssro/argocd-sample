@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-308
+  labels:
+    app: app-308
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-308
+  template:
+    metadata:
+      labels:
+        app: app-308
+    spec:
+      containers:
+      - name: web
+        image: httpd
+        ports:
+        - containerPort: 80

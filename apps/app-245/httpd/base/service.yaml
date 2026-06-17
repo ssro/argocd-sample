@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-245
+  labels:
+    app: app-245
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: app-245
