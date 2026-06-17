@@ -6,3 +6,17 @@ images:
   - name: httpd
     newName: nginx
     newTag: "1.27.0-alpine"
+patches:
+  - target:
+      kind: Deployment
+      name: app-57
+    patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 50m
+            memory: 52Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
